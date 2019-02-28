@@ -16,14 +16,16 @@ import com.bmpl.DTO.VehicleDTO;
 
 public class WordDocReader {
 		
-	public static ArrayList<VehicleDTO> readDoc(String fullPath) throws IOException {
+	public static ArrayList<VehicleDTO> readDoc(String fileName) throws IOException {
 		System.out.println("inside readDoc method ");
 		VehicleDAO vehicledao = new VehicleDAO();
 		ArrayList<VehicleDTO> vehicledtoList = new ArrayList<>();
 		
+		String url = "D://";
+		System.out.println(fileName);
+		String fullPath = url+fileName;
 		
-		File file = new File(fullPath);
-//		File file = new File("D://vcls.docx");
+		File file = new File(fullPath);		
 		
 		if(file.exists()) {
 			
@@ -40,9 +42,7 @@ public class WordDocReader {
 			if(tablelist != null) {
 			
 				for(XWPFTable table: tablelist) {
-//				System.out.println(table);
 				List<XWPFTableRow> rows = table.getRows();
-//					System.out.println(rows);
 					
 					if(rows != null) {
 						boolean isFirstRow = true;
@@ -66,10 +66,12 @@ public class WordDocReader {
 						
 						List<XWPFTableCell> cells = row.getTableCells();
 			
-						 	int columnCount = 1;		
+						 	int columnCount = 1;					 	
 							for(XWPFTableCell cell : cells) {	
 								
-								if(columnCount == 1 && cell.getText().trim() != null ) {
+								
+								
+								if(columnCount == 1 && cell.getText().trim().isEmpty()) {
 //										
 								}
 								
@@ -148,14 +150,9 @@ public class WordDocReader {
 									  }
 								}
 								
-								
-//								System.out.println(vdto.toString());
 									columnCount++;
-//								vechiledtoList.add(vdto);
-									
 							   }
-//							System.out.println(vdto.toString());
-//							vehicledao.insertIntoDB(vdto);
+;
 							vehicledtoList.add(vdto);
 						    }
 					    }

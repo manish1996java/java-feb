@@ -12,23 +12,49 @@ import com.bmpl.utils.SQLConstants;
 
 public class VehicleDAO {
 
-	public void showAllTableData() {
-		
+	public ArrayList<VehicleDTO> showData() {
+		System.out.println("inside show data");
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs= null;
 		
-		
+		ArrayList<VehicleDTO> list = new ArrayList<VehicleDTO>();
 		
 		try {
 			con = CommonDAO.getConnection();
-			ps = con.prepareStatement("Select * from vehicle_mst;");
-			rs = ps.executeQuery();
+			System.out.println("connection established");
 			
+			ps = con.prepareStatement(SQLConstants.SHOW_DATA_QUERY);
+			System.out.println("statement prepared");
+			
+			rs = ps.executeQuery();
+			System.out.println("execute query");
 			while(rs.next()) {
-				System.out.println("name"+ rs.getString("vname")+"pass"+ rs.getInt("staff_no"));
+				VehicleDTO vdto = new VehicleDTO();
+				
+				vdto.setName(rs.getString("vname"));
+				vdto.setStaffNo(rs.getString("staff_no"));
+				vdto.setType(rs.getString("vehicle_type"));
+				vdto.setVehicleNo(rs.getString("vehicle_no"));
+				vdto.setStickerNo(rs.getString("supporting_doc"));
+				vdto.setSupportingDoc(rs.getString("contact_no"));
+				vdto.setSignature(rs.getString("signature"));
+				
+//				System.out.println(vdto.toString());
+				list.add(vdto);
+				
+//				System.out.println("s.no"+rs.getInt("sno")
+//				+"name  :"+ rs.getString("vname")+
+//				"staff_no :"+ rs.getString("staff_no")+
+//				"Vehicle Type: "+rs.getString("vehicle_type")+
+//				"vehicle_no :"+rs.getString("vehicle_no")+
+//				"Supporting dco :"+rs.getString("supporting_doc")+
+//				"contact No :"+rs.getString("contact_no")+
+//				"Signature :"+rs.getString("signature"));
+				
 			}
 			
+			System.out.println("display compleate");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -68,6 +94,7 @@ public class VehicleDAO {
 			
 		}
 		
+		return list;
 	}
 	
 	
@@ -76,9 +103,10 @@ public class VehicleDAO {
 	
 //	public void insertIntoDB(String name,int staffNo,String vehicleType,int vehicleNo,String supportingDoc,int contactNo,String signature) {
 	public boolean isUploadIntoDB(ArrayList<VehicleDTO> vehicledtoList) {
+		
+	
 		Connection con = null;
 		PreparedStatement ps = null;
-		ResultSet rs= null;
 		boolean isUpload = false;
 		
 		try {

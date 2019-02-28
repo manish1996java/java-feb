@@ -7,13 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
 	
-	
-	
-	
-	
-	%>
+	<h1>
+	<% out.println("I am here now"); %>
+	</h1>>
 	
 </body>
 </html>
