@@ -70,7 +70,7 @@ public class PdfGenerator {
 			System.out.println("Get instance");
 			doc.open();
 			
-			//add name of componey
+			//add name of company
 			Paragraph pr1 = new Paragraph("Lazz parking",bold);
 			pr1.setAlignment(Element.ALIGN_CENTER);
 			
