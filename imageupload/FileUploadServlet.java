@@ -51,6 +51,8 @@ public class FileUploadServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 	String username = request.getParameter("username");
+		
+	//fist you need create this upload folde in our web-content folder
 	String path = this.getServletContext().getRealPath("upload"); 
 	Part filePart = request.getPart("file");
 	String fileName = getFileName(filePart);
